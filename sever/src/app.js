@@ -3,6 +3,7 @@ let bodyParser = require('body-parser')
 
 const app = express()
 
+// เพิ่ม 2 บรรทัดนี้เพื่อใช้งาน body-parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -12,13 +13,7 @@ let coffees = [
     { id: 2, name: 'Latte', price: 75, size: 'L' },
     { id: 3, name: 'Espresso', price: 50, size: 'S' }
 ]
-let nextId = 4 // สำหรับกำหนด ID ถัดไป
-
-app.get('/', function (req, res) {
-    res.send('wellcome to Coffee Shop API')
-})
-
-// --- API Routes สำหรับ Coffee Shop API ---
+let nextId = 4
 
 // 1. GET: ดูสถานะเซิร์ฟเวอร์
 app.get('/status', function (req, res) {
@@ -98,5 +93,5 @@ app.delete('/coffees/:coffeeId', function (req, res) {
 // --- Start Server ---
 let port = 8081
 app.listen(port, function () {
-    console.log('Server running on ' + port)
+    console.log('server running on ' + port)
 })
