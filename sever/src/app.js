@@ -1,115 +1,23 @@
-let express = require('express')
-let bodyParser = require('body-parser')
+const express = require('express')
+const { sequelize } = require('./models') // เรียกใช้ sequelize object ที่เราสร้างไว้
+const config = require('./config/config')
 
 const app = express()
 
-// เพิ่ม 2 บรรทัดนี้เพื่อใช้งาน body-parser
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+// --- Middleware Section ---
+app.use(express.json()) 
+app.use(express.urlencoded({ extended: true }))
 
-// --- Mock Data: จำลองฐานข้อมูลเมนูกาแฟ ---
-let coffees = [
-    { id: 1, name: 'Americano', price: 60, size: 'M' },
-    { id: 2, name: 'Latte', price: 75, size: 'L' },
-    { id: 3, name: 'Espresso', price: 50, size: 'S' }
-]
-let nextId = 4
+// --- Routes Section ---
+require('./routes')(app)
 
-// 1. GET: ดูสถานะเซิร์ฟเวอร์
-app.get('/status', function (req, res) {
-    res.send('✅ Coffee Shop API Server is running!')
-})
+// --- Server Startup Section ---
+const port = config.port
 
-// 2. GET: เรียกดูรายการกาแฟทั้งหมด (Read All)
-app.get('/coffees', function (req, res) {
-    console.log('GET /coffees - เรียกรายการทั้งหมด');
-    
-    const plainTextList = coffees.map(c => 
-        `ID: ${c.id}, Name: ${c.name}, Price: ${c.price}, Size: ${c.size}`
-    ).join('\n');
-
-    res.setHeader('Content-Type', 'text/plain');
-    res.send(plainTextList); 
-})
-
-// 3. GET by ID: เรียกดูข้อมูลกาแฟตาม ID (Read Single)
-app.get('/coffees/:coffeeId', function (req, res) {
-    const id = parseInt(req.params.coffeeId)
-    const coffee = coffees.find(c => c.id === id)
-
-    if (coffee) {
-        console.log(`GET /coffees/${id} - พบรายการ`)
-        const plainText = 
-            `id: ${coffee.id}\n` +
-            `name: ${coffee.name}\n` +
-            `price: ${coffee.price}\n` +
-            `size: ${coffee.size}`;
-        
-        res.setHeader('Content-Type', 'text/plain');
-        res.send(plainText) 
-        
-    } else {
-        console.log(`GET /coffees/${id} - ไม่พบรายการ`)
-        const plainText = 
-            `ไม่พบเมนูกาแฟ ID: ${id}\n`;
-        
-        res.setHeader('Content-Type', 'text/plain');
-        res.send(plainText) 
-    }
-})
-
-// 4. POST: สร้างเมนูกาแฟใหม่ (Create)
-app.post('/coffees', function (req, res) {
-    const newCoffee = {
-        id: nextId++,
-        name: req.body.name || 'Unknown Coffee',
-        price: req.body.price ? parseFloat(req.body.price) : 0,
-        size: req.body.size || 'M'
-    }
-    
-    coffees.push(newCoffee)
-    console.log('POST /coffees - สร้างรายการใหม่: ' + JSON.stringify(newCoffee))
-    res.status(201).send(newCoffee) 
-})
-
-// 5. PUT: แก้ไขข้อมูลกาแฟตาม ID (Update)
-app.put('/coffees/:coffeeId', function (req, res) {
-    const id = parseInt(req.params.coffeeId)
-    const index = coffees.findIndex(c => c.id === id)
-
-    if (index !== -1) {
-        coffees[index] = {
-            id: id,
-            name: req.body.name || coffees[index].name,
-            price: req.body.price ? parseFloat(req.body.price) : coffees[index].price,
-            size: req.body.size || coffees[index].size
-        }
-        console.log(`PUT /coffees/${id} - แก้ไขรายการ: ` + JSON.stringify(coffees[index]))
-        res.send(coffees[index])
-    } else {
-        console.log(`PUT /coffees/${id} - ไม่พบรายการที่จะแก้ไข`)
-        res.status(404).send({ message: `ไม่พบเมนูกาแฟ ID: ${id} ที่จะแก้ไข` })
-    }
-})
-
-// 6. DELETE: ลบเมนูกาแฟตาม ID (Delete)
-app.delete('/coffees/:coffeeId', function (req, res) {
-    const id = parseInt(req.params.coffeeId)
-    const initialLength = coffees.length
-    
-    coffees = coffees.filter(c => c.id !== id)
-
-    if (coffees.length < initialLength) {
-        console.log(`DELETE /coffees/${id} - ลบรายการเรียบร้อย`)
-        res.status(204).send() 
-    } else {
-        console.log(`DELETE /coffees/${id} - ไม่พบรายการที่จะลบ`)
-        res.status(404).send({ message: `ไม่พบเมนูกาแฟ ID: ${id} ที่จะลบ` })
-    }
-})
-
-// --- Start Server ---
-let port = 8081
-app.listen(port, function () {
-    console.log('server running on ' + port)
+// สั่ง Sync ฐานข้อมูลก่อน แล้วค่อยเริ่ม Server
+// force: false หมายถึง ถ้ามีตารางอยู่แล้ว ไม่ต้องลบสร้างใหม่ (รักษาข้อมูลเดิมไว้)
+sequelize.sync({ force: false }).then(() => {
+    app.listen(config.port, function () {
+        console.log('CoffeeShop Server running on port ' + config.port)
+    })
 })
