@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // ----- Import Components -----
-import MenuIndex from '@/components/Menus/Index.vue'
-import MenuShow from '@/components/Menus/ShowMenu.vue'
-import MenuCreate from '@/components/Menus/CreateMenu.vue'
-import MenuEdit from '@/components/Menus/EditMenu.vue'
+import MenuIndex from '../components/Coffees/Index.vue'
+import MenuShow from '../components/Coffees/ShowMenu.vue'
+import MenuCreate from '../components/Coffees/CreateCoffee.vue'
+import MenuEdit from '../components/Coffees/EditCoffee.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
