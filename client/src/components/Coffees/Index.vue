@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import CoffeesService from '@/services/CoffeesService'
+import CoffeesService from '../../services/CoffeesService'
 
 export default {
     data() {
@@ -31,7 +31,7 @@ export default {
 
     async created() {
         try {
-            this.menus = (await UsersService.index()).data
+            this.menus = (await CoffeesService.index()).data
             console.log(this.menus)
         } catch (error) {
             console.log(error)
@@ -42,11 +42,11 @@ export default {
         navigateTo(route) {
             this.$router.push(route)
         },
-        async deleteUser(user) {
+        async deleteUser(coffee) {
             let result = confirm("คุณต้องการลบเมนู " + coffee.name + " ใช่หรือไม่?")
             if (result) {
                 try {
-                    await UsersService.delete(user)
+                    await CoffeesService.delete(coffee)
                     this.refreshData()
                 } catch (err) {
                     console.log(err)
@@ -56,7 +56,7 @@ export default {
 
         async refreshData() {
             try {
-                this.menus = (await UsersService.index()).data
+                this.menus = (await CoffeesService.index()).data
             } catch (err) {
                 console.log(err)
             }

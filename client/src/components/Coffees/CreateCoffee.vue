@@ -11,7 +11,7 @@
 </template>
 
 <script> 
-import CoffeesService from '@/services/CoffeesService'
+import CoffeesService from '../../services/CoffeesService'
 
 export default {
     data() {

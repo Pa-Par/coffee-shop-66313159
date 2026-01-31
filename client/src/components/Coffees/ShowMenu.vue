@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import UsersService from '@/services/UsersService'
+import CoffeesService from '../../services/CoffeesService'
 
 export default {
     data () {
@@ -22,7 +22,7 @@ export default {
     async created () {
         try {
             let menusId = this.$route.params.menusId
-            this.menus = (await UsersService.show(menusId)).data
+            this.menus = (await CoffeesService.show(menusId)).data
         } catch (error) {
             console.log (error)
         }
