@@ -31,8 +31,8 @@ export default {
 
     async created() {
         try {
-            this.menus = (await CoffeesService.index()).data
-            console.log(this.menus)
+            this.coffees = (await CoffeesService.index()).data
+            console.log(this.coffees)
         } catch (error) {
             console.log(error)
         }
@@ -42,7 +42,7 @@ export default {
         navigateTo(route) {
             this.$router.push(route)
         },
-        async deleteUser(coffee) {
+        async deleteCoffee(coffee) {
             let result = confirm("คุณต้องการลบเมนู " + coffee.name + " ใช่หรือไม่?")
             if (result) {
                 try {
@@ -56,7 +56,7 @@ export default {
 
         async refreshData() {
             try {
-                this.menus = (await CoffeesService.index()).data
+                this.coffees = (await CoffeesService.index()).data
             } catch (err) {
                 console.log(err)
             }

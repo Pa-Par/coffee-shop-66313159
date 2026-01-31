@@ -1,33 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // ----- Import Components -----
-import MenuIndex from '../components/Coffees/Index.vue'
-import MenuShow from '../components/Coffees/ShowMenu.vue'
-import MenuCreate from '../components/Coffees/CreateCoffee.vue'
-import MenuEdit from '../components/Coffees/EditCoffee.vue'
+import CoffeesIndex from '../components/Coffees/Index.vue'
+import CoffeesShow from '../components/Coffees/ShowCoffee.vue'
+import CoffeesCreate from '../components/Coffees/CreateCoffee.vue'
+import CoffeesEdit from '../components/Coffees/EditCoffee.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/menus',
-      name: 'menus',
-      component: MenuIndex
+      path: '/',
+      redirect: '/coffees'
+    },
+    {
+      path: '/coffees',
+      name: 'coffees',
+      component: CoffeesIndex
     },
     {
       path: '/coffee/create',
-      name: 'menu-create',
-      component: MenuCreate
+      name: 'coffee-create',
+      component: CoffeesCreate
     },
     {
       path: '/coffee/edit/:coffeeId',
-      name: 'menu-edit',
-      component: MenuEdit
+      name: 'coffee-edit',
+      component: CoffeesEdit
     },
     {
-      path: '/menu/:menuId',
-      name: 'menu-show',
-      component: MenuShow
+      path: '/coffee/:coffeesId',
+      name: 'coffee-show',
+      component: CoffeesShow
     }
   ]
 })

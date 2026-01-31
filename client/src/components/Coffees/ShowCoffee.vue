@@ -21,8 +21,8 @@ export default {
     },
     async created () {
         try {
-            let menusId = this.$route.params.menusId
-            this.menus = (await CoffeesService.show(menusId)).data
+            let menuId = this.$route.params.menuId
+            this.menus = (await CoffeesService.show(menuId)).data
         } catch (error) {
             console.log (error)
         }

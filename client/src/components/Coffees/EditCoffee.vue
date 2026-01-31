@@ -1,12 +1,12 @@
 <template>
   <div>
     <h1>Edit Menu</h1>
-    <form v-on:submit.prevent="editMenu">
-      <p>MenuID: <input type="text" v-model="user.id"></p>
-      <p>Name: <input type="text" v-model="user.name"></p>
-      <p>Price: <input type="text" v-model="user.price"></p>
-      <p>Type: <input type="text" v-model="user.type"></p>
-      <p><button type="submit">edit user</button></p>
+    <form v-on:submit.prevent="editCoffee">
+      <p>MenuID: <input type="text" v-model="coffee.id" readonly></p>
+      <p>Name: <input type="text" v-model="coffee.name"></p>
+      <p>Price: <input type="text" v-model="coffee.price"></p>
+      <p>Type: <input type="text" v-model="coffee.type"></p>
+      <p><button type="submit">บันทึกการแก้ไข</button></p>
     </form>
   </div>
 </template>
