@@ -12,26 +12,25 @@
 </template>
 
 <script>
-import UsersService from '@/services/UsersService'
+import CoffeesService from '@/services/CoffeesService'
 
 export default {
   data() {
     return {
-      user: {
+      coffee: {
         name: '',
-        lastname: '',
-        email: '',
-        password: '',
-        status: 'active'
+        price: 0,
+        type: '',
+        description: ''
       }
     }
   },
   methods: {
-    async editUser() {
+    async editCoffee() {
       try {
-        await UsersService.put(this.user)
+        await CoffeesService.put(this.coffee)
         this.$router.push({
-          name: 'users'
+          name: 'menus'
         })
       } catch (err) {
         console.log(err)
@@ -40,51 +39,11 @@ export default {
   },
   async created() {
     try {
-      let userId = this.$route.params.userId
-      this.user = (await UsersService.show(userId)).data
+      let coffeeId = this.$route.params.coffeeId
+      this.coffee = (await CoffeesService.show(coffeeId)).data
     } catch (error) {
       console.log(error)
     }
   }
 }
 </script>
-<style scoped></style>
-
-<script>
-import UsersService from '@/services/UsersService'
-
-export default {
-  data() {
-    return {
-      user: {
-        name: '',
-        lastname: '',
-        email: '',
-        password: '',
-        status: 'active'
-      }
-    }
-  },
-  methods: {
-    async editUser() {
-      try {
-        await UsersService.put(this.user)
-        this.$router.push({
-          name: 'users'
-        })
-      } catch (err) {
-        console.log(err)
-      }
-    }
-  },
-  async created() {
-    try {
-      let userId = this.$route.params.userId
-      this.user = (await UsersService.show(userId)).data
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-</script>
-<style scoped></style>

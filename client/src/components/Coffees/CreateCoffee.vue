@@ -1,36 +1,35 @@
 <template>
     <div>
-        <h1>Create Menus</h1>
-        <form v-on:submit.prevent = "createMenu">
-            <p>Name: <input type="text" v-model="menus.name"></p>
-            <p>Price: <input type="text" v-model="menus.price"></p>
-            <p>Type: <input type="text" v-model="menus.type"></p>
-            <p><button type="submit">create menus</button></p>
+        <h1>Create Coffee Menu</h1>
+        <form v-on:submit.prevent="createCoffee">
+            <p>Name: <input type="text" v-model="coffee.name"></p>
+            <p>Price: <input type="number" v-model="coffee.price"></p>
+            <p>Type: <input type="text" v-model="coffee.type"> (Hot/Iced/Frappe)</p>
+            <p><button type="submit">Create Menu</button></p>
         </form>
     </div>
 </template>
 
 <script> 
-import UsersService from '../../services/CoffeesService'
+import CoffeesService from '@/services/CoffeesService'
 
 export default {
-    data () {
+    data() {
         return {
-            user: {
+            coffee: {
                 name: '',
-                lastname: '',
-                email: '',
-                password: '',
-                status: 'active'
+                price: 0,
+                type: '',
+                description: ''
             }
         }
     },
     methods: {
-        async createUser () {
+        async createCoffee () {
             try {
-                await UsersService.post(this.user)
+                await CoffeesService.post(this.coffee)
                 this.$router.push({
-                    name: 'users'
+                    name: 'menus'
                 })
             } catch (err) {
                 console.log(err)
@@ -39,5 +38,4 @@ export default {
     }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

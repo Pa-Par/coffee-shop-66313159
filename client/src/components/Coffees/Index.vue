@@ -1,16 +1,18 @@
 <template>
     <div>
-        <h2>Get all menus</h2>
-        <h4>จำนวนเมนู {{ menus.length }}</h4>
-        <div v-for="menus in menus" v-bind:key="menus.id">
-            <p>ID: {{ menus.id }}</p>
-            <p>Name: {{ menus.name }}</p>
-            <p>Price: {{ menus.price }}</p>
-            <p>Type: {{ menus.type }}</p>
+        <h2>Coffee Menus</h2>
+        <h4>จำนวนเมนูทั้งหมด: {{ coffees.length }}</h4>
+        <button v-on:click="navigateTo('/coffee/create')">เพิ่มเมนูใหม่</button>
+        <hr>
+        <div v-for="coffee in coffees" v-bind:key="coffee.id">
+            <p>ID: {{ coffee.id }}</p>
+            <p>Name: {{ coffee.name }}</p>
+            <p>Price: {{ coffee.price }}</p>
+            <p>Type: {{ coffee.type }}</p>
             <p>
-                <button v-on:click="navigateTo('/menus/' + menus.id)">ดูข้อมูลผู้ใช้</button>
-                <button v-on:click="navigateTo('/menus/edit/' + menus.id)">แก้ไขข้อมูล</button>
-                <button v-on:click="deleteUser(menus)">ลบข้อมูล</button>
+                <button v-on:click="navigateTo('/menu/' + coffee.id)">ดูรายละเอียด</button>
+                <button v-on:click="navigateTo('/coffee/edit/' + coffee.id)">แก้ไข</button>
+                <button v-on:click="deleteCoffee(coffee)">ลบข้อมูล</button>
             </p>
             <hr>
         </div>
@@ -18,12 +20,12 @@
 </template>
 
 <script>
-import UsersService from '../../services/CoffeesService'
+import CoffeesService from '@/services/CoffeesService'
 
 export default {
     data() {
         return {
-            menus: []
+            coffees: []
         }
     },
 
@@ -40,19 +42,19 @@ export default {
         navigateTo(route) {
             this.$router.push(route)
         },
-            async deleteUser(user) {
-        let result = confirm("Want to delete?")
-        if (result) {
-            try {
-                await UsersService.delete(user)
-                this.refreshData()
-            } catch (err) {
-                console.log(err)
+        async deleteUser(user) {
+            let result = confirm("คุณต้องการลบเมนู " + coffee.name + " ใช่หรือไม่?")
+            if (result) {
+                try {
+                    await UsersService.delete(user)
+                    this.refreshData()
+                } catch (err) {
+                    console.log(err)
+                }
             }
-        }
-    },
-    
-    async refreshData() {
+        },
+
+        async refreshData() {
             try {
                 this.menus = (await UsersService.index()).data
             } catch (err) {
