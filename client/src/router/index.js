@@ -29,7 +29,7 @@ const router = createRouter({
       component: CoffeesEdit
     },
     {
-      path: '/coffee/:coffeesId',
+      path: '/coffee/:coffeeId',
       name: 'coffee-show',
       component: CoffeesShow
     }

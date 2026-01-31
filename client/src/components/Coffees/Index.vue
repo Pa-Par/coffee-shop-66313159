@@ -10,7 +10,7 @@
             <p>Price: {{ coffee.price }}</p>
             <p>Type: {{ coffee.type }}</p>
             <p>
-                <button v-on:click="navigateTo('/menu/' + coffee.id)">ดูรายละเอียด</button>
+                <button v-on:click="navigateTo('/coffee/' + coffee.id)">ดูรายละเอียด</button>
                 <button v-on:click="navigateTo('/coffee/edit/' + coffee.id)">แก้ไข</button>
                 <button v-on:click="deleteCoffee(coffee)">ลบข้อมูล</button>
             </p>
