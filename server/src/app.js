@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 const { sequelize } = require('./models') 
@@ -7,6 +8,7 @@ const config = require('./config/config')
 // Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 // เรียกใช้ Routes
 require('./routes')(app)
