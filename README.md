@@ -1,3 +1,3 @@
-# Lab4-coffee-shop
+# coffee-shop
 parichat thongbai
 CSIT
