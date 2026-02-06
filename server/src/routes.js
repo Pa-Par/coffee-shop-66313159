@@ -1,5 +1,6 @@
 const UserController = require('./controllers/UserController')
 const CoffeeController = require('./controllers/CoffeeController')
+const UserAuthenController = require('./controllers/UserAuthenController')
 
 module.exports = (app) => {
     
@@ -16,4 +17,7 @@ module.exports = (app) => {
     app.put('/coffee/:coffeeId', CoffeeController.put)
     app.delete('/coffee/:coffeeId', CoffeeController.remove)
     app.get('/coffee/:coffeeId', CoffeeController.show)
+
+    app.post('/login', UserAuthenController.login)
+    app.post('/register', UserAuthenController.register)
 }

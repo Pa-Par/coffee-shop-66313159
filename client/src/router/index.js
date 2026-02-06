@@ -5,6 +5,7 @@ import CoffeesIndex from '../components/Coffees/Index.vue'
 import CoffeesShow from '../components/Coffees/ShowCoffee.vue'
 import CoffeesCreate from '../components/Coffees/CreateCoffee.vue'
 import CoffeesEdit from '../components/Coffees/EditCoffee.vue'
+import Login from '../components/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/coffee/:coffeeId',
       name: 'coffee-show',
       component: CoffeesShow
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })
