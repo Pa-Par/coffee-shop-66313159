@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // เรียกใช้ Routes
+require('./userPassport') // เพิ่มบรรทัดนี้เพื่อให้ระบบรู้จัก JWT
 require('./routes')(app)
 
 sequelize.sync({ force: false }).then(() => {

@@ -3,7 +3,11 @@
         <h2>Coffee Menus</h2>
         <h4>จำนวนเมนูทั้งหมด: {{ coffees.length }}</h4>
         <button v-on:click="logout">Logout</button>
-        <button v-on:click="navigateTo('/coffee/create')">เพิ่มเมนูใหม่</button>
+        
+        <button v-if="userType === 'admin'" v-on:click="navigateTo('/coffee/create')">
+            เพิ่มเมนูใหม่
+        </button>
+        
         <hr>
         <div v-for="coffee in coffees" v-bind:key="coffee.id">
             <p>ID: {{ coffee.id }}</p>
@@ -12,8 +16,11 @@
             <p>Type: {{ coffee.type }}</p>
             <p>
                 <button v-on:click="navigateTo('/coffee/' + coffee.id)">ดูรายละเอียด</button>
-                <button v-on:click="navigateTo('/coffee/edit/' + coffee.id)">แก้ไข</button>
-                <button v-on:click="deleteCoffee(coffee)">ลบข้อมูล</button>
+                
+                <span v-if="userType === 'admin'">
+                    <button v-on:click="navigateTo('/coffee/edit/' + coffee.id)">แก้ไข</button>
+                    <button v-on:click="deleteCoffee(coffee)">ลบข้อมูล</button>
+                </span>
             </p>
             <hr>
         </div>
@@ -28,6 +35,13 @@ export default {
     data() {
         return {
             coffees: []
+        }
+    },
+    
+    computed: {
+        userType() {
+            const authenStore = useAuthenStore()
+            return authenStore.user ? authenStore.user.type : null
         }
     },
 

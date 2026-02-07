@@ -1,7 +1,7 @@
-const {User} = require('../models')
+// const { User } = require('../models')
 const bcrypt = require('bcrypt')
 
-async function hashPassword (user, options) {
+async function hashPassword(user, options) {
     if (!user.changed('password')) {
         return
     }
@@ -19,7 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         password: DataTypes.STRING,
         name: DataTypes.STRING,
         lastname: DataTypes.STRING,
-        status: DataTypes.STRING
+        status: DataTypes.STRING,
+        type: {
+            type: DataTypes.STRING,
+            defaultValue: 'user'
+        }
     }, {
         hooks: {
             beforeCreate: hashPassword,
