@@ -2,6 +2,7 @@
     <div>
         <h2>Coffee Menus</h2>
         <h4>จำนวนเมนูทั้งหมด: {{ coffees.length }}</h4>
+        <button v-on:click="logout">Logout</button>
         <button v-on:click="navigateTo('/coffee/create')">เพิ่มเมนูใหม่</button>
         <hr>
         <div v-for="coffee in coffees" v-bind:key="coffee.id">
@@ -21,6 +22,7 @@
 
 <script>
 import CoffeesService from '../../services/CoffeesService'
+import { useAuthenStore } from '../../stores/authen'
 
 export default {
     data() {
@@ -60,6 +62,14 @@ export default {
             } catch (err) {
                 console.log(err)
             }
+        },
+        logout () {
+            const authenStore = useAuthenStore()
+            authenStore.logout()
+            
+            this.$router.push({
+                name: 'login'
+            })
         },
     }
 }

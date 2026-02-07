@@ -10,11 +10,8 @@ module.exports = {
             storage: './coffeeshop-db.sqlite',
             logging: false
         }
-<<<<<<< HEAD
-=======
     },
     authentication: {
         jwtSecret: process.env.JWT_SECRET || 'secret'
->>>>>>> 06a9b95ca6b71ce2d2a855aa1ddc3f7a6fb151f1
     }
 }

@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-module.exports = (sequelize, DataTypes) => {
-    // กำหนดโครงสร้างตาราง User
-    const User = sequelize.define('User', {
-        email: {
-            type: DataTypes.STRING,
-            unique: true // อีเมล์ต้องไม่ซ้ำ
-=======
 const {User} = require('../models')
 const bcrypt = require('bcrypt')
 
@@ -23,16 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             unique: true
->>>>>>> 06a9b95ca6b71ce2d2a855aa1ddc3f7a6fb151f1
         },
         password: DataTypes.STRING,
         name: DataTypes.STRING,
         lastname: DataTypes.STRING,
-<<<<<<< HEAD
-        status: DataTypes.STRING,
-        type: DataTypes.STRING
-    })
-=======
         status: DataTypes.STRING
     }, {
         hooks: {
@@ -45,6 +31,5 @@ module.exports = (sequelize, DataTypes) => {
         return await bcrypt.compare(password, this.password)
     }
 
->>>>>>> 06a9b95ca6b71ce2d2a855aa1ddc3f7a6fb151f1
     return User
 }
