@@ -10,11 +10,25 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.13.4",
     "body-parser": "^2.2.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "sequelize": "^4.44.4",
     "sqlite3": "^4.2.0"
+=======
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "pinia": "^3.0.4",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
+>>>>>>> 06a9b95ca6b71ce2d2a855aa1ddc3f7a6fb151f1
   }
 }
