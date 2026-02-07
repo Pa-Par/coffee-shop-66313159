@@ -40,7 +40,7 @@ export default {
                 authenStore.setUser(response.data.user)
 
                 this.$router.push({
-                    name: 'users'
+                    name: 'coffees'
                 })
 
             } catch (error) {
