@@ -11,10 +11,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // เรียกใช้ Routes
-require('./userPassport') // เพิ่มบรรทัดนี้เพื่อให้ระบบรู้จัก JWT
+require('./userPassport') 
 require('./routes')(app)
 
-sequelize.sync({ force: false }).then(() => {
+// *** แก้ตรงนี้ครับ ***
+sequelize.sync({ alter: true }).then(() => {
     app.listen(config.port, function () {
         console.log('Server started on port ' + config.port)
     })

@@ -1,20 +1,20 @@
-import Api from '@/services/Api'
+import Api from '../services/Api'
 
 export default {
-    index () {
+    index() {
         return Api().get('coffees')
     },
-    show (coffeeId) {
-        return Api().get('coffee/'+coffeeId)
+    show(coffeeId) {
+        return Api().get('coffee/' + coffeeId)
     },
-    post (coffee) {
+    post(coffee) {
         return Api().post('coffee', coffee)
     },
-    put (coffee) {
-        return Api().put('coffee/'+coffee.id, coffee)
+    put(coffee) {
+        return Api().put('coffee/' + coffee.id, coffee)
     },
-    delete (coffee) {
-        return Api().delete('coffee/'+coffee.id)
-    },
+    delete(coffee) {
+        return Api().delete('coffee/' + coffee.id)
+    }
 }
 

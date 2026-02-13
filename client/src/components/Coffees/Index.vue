@@ -1,12 +1,12 @@
 <template>
     <div>
         <h2>Coffee Menus</h2>
+        <p><button v-on:click="logout">Logout</button></p>
         <h4>จำนวนเมนูทั้งหมด: {{ coffees.length }}</h4>
-        <button v-on:click="logout">Logout</button>
         
-        <button v-if="userType === 'admin'" v-on:click="navigateTo('/coffee/create')">
+        <p><button v-if="userType === 'admin'" v-on:click="navigateTo('/coffee/create')">
             เพิ่มเมนูใหม่
-        </button>
+        </button></p>
         
         <hr>
         <div v-for="coffee in coffees" v-bind:key="coffee.id">
@@ -14,9 +14,9 @@
             <p>Name: {{ coffee.name }}</p>
             <p>Price: {{ coffee.price }}</p>
             <p>Type: {{ coffee.type }}</p>
+            <p>Status: {{ coffee.status === 'in_stock' ? 'มีจำหน่าย' : 'หมด' }}</p>
             <p>
                 <button v-on:click="navigateTo('/coffee/' + coffee.id)">ดูรายละเอียด</button>
-                
                 <span v-if="userType === 'admin'">
                     <button v-on:click="navigateTo('/coffee/edit/' + coffee.id)">แก้ไข</button>
                     <button v-on:click="deleteCoffee(coffee)">ลบข้อมูล</button>
@@ -88,5 +88,4 @@ export default {
     }
 }
 </script>
-
 <style scoped></style>

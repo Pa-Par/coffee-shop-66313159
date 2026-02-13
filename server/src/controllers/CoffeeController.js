@@ -2,7 +2,7 @@ const { Coffee } = require('../models') // เรียกใช้ Model Coffee
 
 module.exports = {
     // 1. ดึงเมนูทั้งหมด
-    async index (req, res) {
+    async index(req, res) {
         try {
             const coffees = await Coffee.findAll()
             res.send(coffees)
@@ -12,7 +12,7 @@ module.exports = {
     },
 
     // 2. สร้างเมนูใหม่
-    async create (req, res) {
+    async create(req, res) {
         try {
             // บันทึกลงตาราง Coffee
             const coffee = await Coffee.create(req.body)
@@ -23,10 +23,12 @@ module.exports = {
     },
 
     // 3. แก้ไขเมนู
-    async put (req, res) {
+    async put(req, res) {
         try {
             await Coffee.update(req.body, {
-                where: { id: req.params.coffeeId }
+                where: {
+                    id: req.params.coffeeId
+                }
             })
             res.send(req.body)
         } catch (err) {
@@ -35,7 +37,7 @@ module.exports = {
     },
 
     // 4. ลบเมนู
-    async remove (req, res) {
+    async remove(req, res) {
         try {
             const coffee = await Coffee.findOne({
                 where: { id: req.params.coffeeId }
@@ -51,7 +53,7 @@ module.exports = {
     },
 
     // 5. ดูเมนูรายตัว
-    async show (req, res) {
+    async show(req, res) {
         try {
             const coffee = await Coffee.findByPk(req.params.coffeeId)
             res.send(coffee)
