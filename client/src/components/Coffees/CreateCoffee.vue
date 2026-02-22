@@ -17,9 +17,9 @@
                     <option value="out_of_stock">หมด</option>
                 </select>
             </p>
-            <upload-image @uploaded="onUploaded"></upload-image>
+            <p><upload-image @uploaded="onUploaded"></upload-image></p>
             <div class="editor-container">
-                <label>Content:</label>
+                <label>Description: </label>
                 <ckeditor :editor="editor" v-model="coffee.content" :config="editorConfig"></ckeditor>
             </div>
             <p><button type="submit">Create Menu</button></p>
@@ -35,15 +35,14 @@ import UploadImage from '../Utils/Upload.vue'
 
 export default {
     components: {
-        UploadImage // Register Component
+        UploadImage
     },
     data() {
         return {
-            editor: ClassicEditor,  // 1. กำหนด Editor Build
+            editor: ClassicEditor,
             editorConfig: {
                 licenseKey: 'GPL',
-                // สามารถปรับแต่ง Toolbar ได้ตามต้องการ
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'] // 2. ตั้งค่า Toolbar
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote']
             },
             coffee: {
                 name: '',
