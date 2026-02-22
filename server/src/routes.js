@@ -3,6 +3,8 @@ const isAdmin = require('./controllers/isAdmin')
 const UserController = require('./controllers/UserController')
 const UserAuthenController = require('./controllers/UserAuthenController')
 const CoffeeController = require('./controllers/CoffeeController')
+const UploadController = require('./controllers/UploadController')
+const fileUploadMiddleware = require('./middleware/coffeeUpload')
 
 module.exports = (app) => {
     app.get('/users', isAuthenController, UserController.index)
@@ -20,4 +22,5 @@ module.exports = (app) => {
     app.get('/coffee/:coffeeId', CoffeeController.show)
     app.get('/coffees', CoffeeController.index)
     
+    app.post('/upload', fileUploadMiddleware, UploadController.upload)
 }
