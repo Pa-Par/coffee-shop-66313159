@@ -18,6 +18,13 @@
           <option value="out_of_stock">หมด</option>
         </select>
       </p>
+
+      <p v-if="coffee.pictures && coffee.pictures !== 'null'">
+        <label>รูปภาพปัจจุบัน:</label><br>
+        <img :src="'http://localhost:8081/assets/uploads/' + coffee.pictures" alt="Coffee Image"
+          style="max-width: 200px; border-radius: 10px;">
+      </p>
+      <upload-image @uploaded="onUploaded"></upload-image>
       <p>Description: <br>
         <textarea v-model="coffee.description" rows="4" cols="30"></textarea>
       </p>
@@ -31,8 +38,10 @@
 
 <script>
 import CoffeesService from '../../services/CoffeesService'
+import UploadImage from '../Utils/Upload.vue'
 
 export default {
+  components: { UploadImage },
   data() {
     return {
       coffee: {
@@ -40,6 +49,7 @@ export default {
         price: 0,
         type: '',
         status: '',
+        pictures: '',
         description: ''
       }
     }
@@ -54,6 +64,14 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    
+    onUploaded(filename) {
+      this.coffee.pictures = filename
+    },
+
+    navigateTo(route) {
+      this.$router.push(route)
     }
   },
   async created() {

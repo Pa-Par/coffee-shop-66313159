@@ -20,7 +20,7 @@
             <upload-image @uploaded="onUploaded"></upload-image>
             <div class="editor-container">
                 <label>Content:</label>
-                <ckeditor :editor="editor" v-model="blog.content" :config="editorConfig"></ckeditor>
+                <ckeditor :editor="editor" v-model="coffee.content" :config="editorConfig"></ckeditor>
             </div>
             <p>Description: <textarea v-model="coffee.description"></textarea></p>
             <p><button type="submit">Create Menu</button></p>
@@ -70,6 +70,9 @@ export default {
             } catch (err) {
                 console.log(err)
             }
+        },
+        onUploaded(filename) {
+            this.coffee.pictures = filename
         }
     }
 }

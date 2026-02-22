@@ -22,5 +22,5 @@ module.exports = (app) => {
     app.get('/coffee/:coffeeId', CoffeeController.show)
     app.get('/coffees', CoffeeController.index)
     
-    app.post('/upload', fileUploadMiddleware, UploadController.upload)
+    app.post('/coffee-upload', fileUploadMiddleware, UploadController.upload)
 }

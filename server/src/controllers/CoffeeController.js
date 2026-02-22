@@ -14,8 +14,14 @@ module.exports = {
     // 2. สร้างเมนูใหม่
     async create(req, res) {
         try {
-            // บันทึกลงตาราง Coffee
-            const coffee = await Coffee.create(req.body)
+            const coffee = await Coffee.create({
+                name: req.body.name,
+                price: req.body.price,
+                type: req.body.type,
+                status: req.body.status,
+                description: req.body.description,
+                pictures: req.body.pictures
+            })
             res.send(coffee.toJSON())
         } catch (err) {
             res.status(500).send({ error: 'สร้างเมนูไม่สำเร็จ' })
@@ -25,7 +31,14 @@ module.exports = {
     // 3. แก้ไขเมนู
     async put(req, res) {
         try {
-            await Coffee.update(req.body, {
+            await Coffee.update({
+                name: req.body.name,
+                price: req.body.price,
+                type: req.body.type,
+                status: req.body.status,
+                description: req.body.description,
+                pictures: req.body.pictures // <--- จุดที่เพิ่มเข้ามารองรับฟิลด์รูปภาพ
+            }, {
                 where: {
                     id: req.params.coffeeId
                 }

@@ -1,7 +1,7 @@
 <template>
   <div class="upload-box">
     <div class="mb-3">
-        <label class="form-label">Upload Thumbnail:</label>
+        <label class="form-label">Add Photo: </label>
         <input type="file" class="form-control" @change="onFileChange" accept="image/*" />
     </div>
     

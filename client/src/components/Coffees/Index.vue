@@ -3,28 +3,39 @@
         <h2>Coffee Menus</h2>
         <p><button v-on:click="logout">Logout</button></p>
         <h4>จำนวนเมนูทั้งหมด: {{ coffees.length }}</h4>
-        
+
         <p><button v-if="userType === 'admin'" v-on:click="navigateTo('/coffee/create')">
             เพิ่มเมนูใหม่
         </button></p>
-        
+
         <hr>
-        <div v-for="coffee in coffees" v-bind:key="coffee.id">
-            <p>ID: {{ coffee.id }}</p>
-            <p>Name: {{ coffee.name }}</p>
-            <p>Price: {{ coffee.price }}</p>
-            <p>Type: {{ coffee.type }}</p>
-            <p>Status: {{ coffee.status === 'in_stock' ? 'มีจำหน่าย' : 'หมด' }}</p>
-            <p>
-                <button v-on:click="navigateTo('/coffee/' + coffee.id)">ดูรายละเอียด</button>
-                <span v-if="userType === 'admin'">
-                    <button v-on:click="navigateTo('/coffee/edit/' + coffee.id)">แก้ไข</button>
-                    <button v-on:click="deleteCoffee(coffee)">ลบข้อมูล</button>
-                </span>
-            </p>
+        
+        <div v-for="coffee in coffees" v-bind:key="coffee.id" class="coffee-item">
+            
+            <img v-if="coffee.pictures && coffee.pictures !== 'null'" 
+                 :src="'http://localhost:8081/assets/uploads/' + coffee.pictures" 
+                 class="coffee-avatar" 
+                 alt="coffee">
+            
+            <div class="coffee-info">
+                <p>ID: {{ coffee.id }}</p>
+                <p>Name: {{ coffee.name }}</p>
+                <p>Price: {{ coffee.price }}</p>
+                <p>Type: {{ coffee.type }}</p>
+                <p>Status: {{ coffee.status === 'in_stock' ? 'มีจำหน่าย' : 'หมด' }}</p>
+                <p>
+                    <button v-on:click="navigateTo('/coffee/' + coffee.id)">ดูรายละเอียด</button>
+                    <span v-if="userType === 'admin'">
+                        <button v-on:click="navigateTo('/coffee/edit/' + coffee.id)">แก้ไข</button>
+                        <button v-on:click="deleteCoffee(coffee)">ลบข้อมูล</button>
+                    </span>
+                </p>
+            </div>
+            
+            <div style="clear: both;"></div> 
             <hr>
         </div>
-    </div>
+        </div>
 </template>
 
 <script>
@@ -37,7 +48,7 @@ export default {
             coffees: []
         }
     },
-    
+
     computed: {
         userType() {
             const authenStore = useAuthenStore()
@@ -77,10 +88,10 @@ export default {
                 console.log(err)
             }
         },
-        logout () {
+        logout() {
             const authenStore = useAuthenStore()
             authenStore.logout()
-            
+
             this.$router.push({
                 name: 'login'
             })
@@ -88,4 +99,18 @@ export default {
     }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.coffee-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    float: left;
+    margin-right: 15px;
+}
+
+.coffee-info {
+    overflow: hidden;
+    /* เคลียร์ float */
+}
+</style>
