@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 const app = express()
 
 const { sequelize } = require('./models') 
@@ -9,7 +10,7 @@ const config = require('./config/config')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
-app.use('/assets', express.static('public'))
+app.use('/assets', express.static(path.join(__dirname, '../public')))
 
 // เรียกใช้ Routes
 require('./userPassport') 
