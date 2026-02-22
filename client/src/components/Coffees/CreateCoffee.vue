@@ -22,7 +22,6 @@
                 <label>Content:</label>
                 <ckeditor :editor="editor" v-model="coffee.content" :config="editorConfig"></ckeditor>
             </div>
-            <p>Description: <textarea v-model="coffee.description"></textarea></p>
             <p><button type="submit">Create Menu</button></p>
             <p><button v-on:click="navigateTo('/coffees')">กลับ</button></p>
         </form>
